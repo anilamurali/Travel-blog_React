@@ -1,0 +1,23 @@
+
+
+                            TRAVEL-LOG-FRONDEND
+
+                1. Create the react app -> npx create-react-app  travel-log-frontend
+                2. Run the project -> npm start
+                3. Remove all unwanted files
+                4. Install all third party libraries
+                    1. react- bootsrap -npm install react-bootstrap bootstrap
+                    2. fontawsome -npm i @fortawesome/fontawesome-free
+                    3. mdbbootstrap -npm i mdb-react-ui-kit
+                    4. bootswatch
+                    5. goole fonts
+                    6. tailwind css
+                        npm install -D tailwindcss
+                        npx tailwindcss init
+                6. import fontawesome and mdbbootstrap in index.js
+                    import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+                    import "@fortawesome/fontawesome-free/css/all.min.css";
+                7. import bootswatch in index.js
+                    import './bootstrap.min.css'
+                8. framer motion 
+                    ->npm i framer-motion
