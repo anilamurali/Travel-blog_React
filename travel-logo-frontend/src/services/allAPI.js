@@ -10,6 +10,14 @@ export const registerAPI=async(reqBody)=>{
 export const loginAPI=async(reqBody)=>{
     return await commonAPI("post", `${BASE_URL}/user/login`,reqBody,"")
 }
+// user profile get for forgot password
+export const getProfileAPI=async(email)=>{
+    return await commonAPI("get", `${BASE_URL}/user/forgotpassword/${email}`,"","")
+}
+// reset password
+export const resetPasswordAPI=async(email,reqBody)=>{
+    return await commonAPI("put", `${BASE_URL}/user/resetpassword/${email}`,reqBody,"")
+}
 
 // getuserprofile API
 export const getuserprofileAPI=async(reqHeader)=>{

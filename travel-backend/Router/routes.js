@@ -19,7 +19,6 @@ const jwtMiddleware=require('../Middlewares/jwtMiddleware')
 const multerConfig=require('../Middlewares/multerMiddleware')
 
 // register Api call
-
 router.post('/user/register',userController.register)
 // login api call
 router.post('/user/login',userController.login)
@@ -31,6 +30,10 @@ router.get('/user/blogger/:id',jwtMiddleware,userController.bloggerProfile)
 router.get('/user/all',jwtMiddleware,userController.getAllProfile)
 // delete user
 router.delete('/user/delete/:id',jwtMiddleware,userController.deleteUser)
+// forgot Password
+router.put('/user/resetpassword/:id',userController.forgotPassword)
+// user profile using username
+router.get('/user/forgotpassword/:id',userController.forgotPasswordProfile)
 
 
 

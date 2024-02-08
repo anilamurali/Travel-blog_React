@@ -1,9 +1,11 @@
 import { MDBBtn, MDBInput } from 'mdb-react-ui-kit'
 import React, { useState } from 'react'
-import { Button, Col, Row } from 'react-bootstrap'
+import { Button, Col, Row, } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import Header from './Header'
 import { loginAPI, registerAPI } from '../services/allAPI'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify'
 
 function Auth({ register }) {
     const registerform = register ? true : false
@@ -19,22 +21,25 @@ function Auth({ register }) {
     // register function
     const handleRegister = async (e) => {
         e.preventDefault()
-        const {username,email,place,password}=userData
+        const { username, email, place, password } = userData
         let today = new Date()
         let joined = new Intl.DateTimeFormat('en-us', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(today)
 
         if (!userData.username || !userData.place || !userData.email || !userData.password) {
-            alert("Please fill all field")
+            // alert("Please fill all field")
+            toast.error("Please fill all field")
 
         }
         else {
-            const result = await registerAPI({username,email,place,joined,password})
+            const result = await registerAPI({ username, email, place, joined, password })
             if (result.status == 200) {
-                alert(`${result.data.username} has been registered`)
+                // alert(`${result.data.username} has been registered`)
+                toast.warning(`${result.data.username} has been registered`)
                 navigate('/login')
             }
             else {
-                alert("email alrady exist")
+                // alert("email alrady exist")
+                toast.error("mail already exists")
             }
         }
     }
@@ -43,13 +48,15 @@ function Auth({ register }) {
     const handleLogin = async (e) => {
         e.preventDefault()
         if (!userData.email || !userData.password) {
-            alert("Please fill all field")
+            // alert("Please fill all field")
+            toast.error("Please fill all field")
         }
         else {
             const result = await loginAPI(userData)
             console.log(result);
             if (result.status == 200) {
-                alert("Login Successfull")
+                // alert("Login Successfull")
+                // toast.info('Login Successfull')
                 // to set user details in sessionStorage
                 sessionStorage.setItem("existingUser", JSON.stringify(result.data.existingUser))
                 sessionStorage.setItem("token", result.data.token)
@@ -60,7 +67,8 @@ function Auth({ register }) {
                 navigate('/')
             }
             else {
-                alert("login Failed")
+                // alert("login Failed")
+                toast.error("login Failed")
             }
         }
 
@@ -103,24 +111,40 @@ function Auth({ register }) {
                                                 <input onChange={(e) => setUserData({ ...userData, password: e.target.value })} type="text" className="form-control my-4 rounded-3" placeholder='Enter your Password' />
 
                                                 {
+                                                    !registerform &&
+                                                    <Link to={'/login/fogotpassword'} style={{ textDecoration: 'none' }} className='mt-5 text-slate-500'>Forgot Password</Link>
+
+                                                }
+                                                {
                                                     registerform ? <div>
                                                         <MDBBtn onClick={handleRegister} className='mt-2 btn-warning  rounded-pill' style={{ width: '150px' }} >Register</MDBBtn>
                                                         <Link to={'/login'} style={{ textDecoration: 'none' }}>
-                                                            <p className='mt-4 text-slate-500'>Already have an account? Pleae Login Here</p></Link>
+                                                            <p className='mt-4 mb-4 text-slate-500'>Already have an account? Pleae Login Here</p></Link>
 
                                                     </div> :
                                                         <div>
                                                             <MDBBtn onClick={handleLogin} className='mt-2 btn-warning  rounded-pill' style={{ width: '150px' }}  >Login</MDBBtn>
-
-
                                                             <Link to={'/register'} style={{ textDecoration: 'none' }}><p className='mt-4 text-slate-500'>Don't have an account? Pleae Register Here</p></Link>
 
                                                         </div>
                                                 }
-
                                             </div>
                                         }
                                     </form>
+                                    <ToastContainer
+                                        position="top-center"
+                                        autoClose={5000}
+                                        hideProgressBar={false}
+                                        newestOnTop={false}
+                                        closeOnClick
+                                        rtl={false}
+                                        pauseOnFocusLoss
+                                        draggable
+                                        pauseOnHover
+                                        theme="light"
+
+                                    />
+
 
                                 </div>
                             </div>

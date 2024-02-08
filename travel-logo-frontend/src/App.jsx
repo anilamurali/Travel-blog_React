@@ -11,6 +11,7 @@ import ManageBlog from './Components/ManageBlog';
 import SingleBlog from './Components/SingleBlog';
 import AllProfile from './Components/AllProfile';
 import Blogger from './Components/Blogger';
+import ForgotPassword from './Components/ForgotPassword';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path='/singleBlog/:id' element={<SingleBlog/>}/>
         <Route path='/dashboard/edit/:id' element={<ManageBlog />} />
         <Route path='/blog'  element={<AllBlogs/>}/>
+        <Route path='login/fogotpassword'  element={<ForgotPassword/>}/>
         <Route path='*' element={<PageNoteFound/>}/>
       </Routes>
       <Footer/>

@@ -135,3 +135,30 @@ exports.deleteUser= async (req, res) => {
         res.status(401).json({ "Request failded": +err })
     }
 }
+
+// forgott password
+exports.forgotPassword=async (req,res)=>{
+    const {id}=req.params
+    const {password}=req.body
+    console.log(password);
+    try{
+        const resetPassword=await users.findOneAndUpdate({email:id},{password})
+        await resetPassword.save()
+        res.status(200).json(resetPassword)
+    }
+    catch(err){
+        res.status(401).json({ "Request failded": +err })
+    }
+}
+// fetch user profile using username
+exports.forgotPasswordProfile=async(req,res)=>{
+    const {id}=req.params
+    try{
+        const yourProfile= await users.findOne({email:id})
+        res.status(200).json(yourProfile)
+    }
+    catch(err){
+        res.status(401).json({"Request failed ": +err})
+    }
+
+}
